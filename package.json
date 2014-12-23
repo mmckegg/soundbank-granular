@@ -1,0 +1,30 @@
+{
+  "name": "soundbank-granular",
+  "version": "0.0.0",
+  "description": "Sample based granular sythesis and timestretch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "beefy example.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmckegg/soundbank-granular.git"
+  },
+  "keywords": [
+    "timestretch",
+    "granular",
+    "waapi",
+    "pitch",
+    "synth"
+  ],
+  "author": "Matt McKegg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmckegg/soundbank-granular/issues"
+  },
+  "homepage": "https://github.com/mmckegg/soundbank-granular",
+  "devDependencies": {
+    "beefy": "^2.1.1",
+    "bopper": "^2.2.5"
+  }
+}
