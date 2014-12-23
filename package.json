@@ -1,6 +1,6 @@
 {
   "name": "soundbank-granular",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Sample based granular sythesis and timestretch.",
   "main": "index.js",
   "scripts": {
