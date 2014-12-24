@@ -101,11 +101,15 @@ function schedule(output, from, to, beatDuration){
   } else if (output._next < to) {
     do {
       var playAt = output._next + output._startAt
-      if (!output._stopAt || output._stopAt > (playAt + output._duration)){
-        playGrain(playAt, output, output._nextOffset)
-      }
+      playGrain(playAt, output, output._nextOffset)
       output._next += output._duration
-      output._nextOffset = (output._nextOffset + 1 / output._slices) % 1
+
+      if (output.mode === 'oneshot'){
+        output._nextOffset = (output._nextOffset + 1 / output._slices)
+      } else {
+        output._nextOffset = (output._nextOffset + 1 / output._slices) % 1
+      }
+      
     } while (output._next < to)
   }
 }
@@ -118,7 +122,6 @@ function playGrain(at, output, startOffset){
   var buffer = output._context.sampleCache && output._context.sampleCache[output.url]
   if (buffer instanceof AudioBuffer){
 
-
     source.buffer = buffer
 
     var offset = Array.isArray(output.offset) ? output.offset : [0,1]
@@ -128,7 +131,10 @@ function playGrain(at, output, startOffset){
 
     var release = output._duration * output.release
     var attack = output._duration * output.release
-    var releaseAt = at + (output._duration * output.hold)
+
+    // make sure it doesn't exceed the stop time
+    var maxTime = (output._stopAt || Infinity) - release
+    var releaseAt = Math.min(at + output._duration * output.hold, maxTime)
 
     source.playbackRate.value = multiplyTranspose(output.transpose + (output.tune / 100))
 
@@ -147,7 +153,9 @@ function playGrain(at, output, startOffset){
     gain.gain.linearRampToValueAtTime(0, releaseAt + release)
 
     gain.connect(output)
+
   }
+
 }
 
 function multiplyTranspose(value){
