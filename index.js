@@ -98,6 +98,9 @@ function schedule(output, from, to, beatDuration){
     // remove scheduler
     output._scheduler.removeListener('data', output._onSchedule)
     output._scheduler = null
+    if (typeof output.onended === 'function'){
+      output.onended()
+    }
   } else if (output._next < to) {
     do {
       var playAt = output._next + output._startAt
