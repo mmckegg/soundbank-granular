@@ -138,6 +138,12 @@ function playGrain(at, output, startOffset){
 
     source.playbackRate.value = multiplyTranspose(output.transpose + (output.tune / 100))
 
+    if (output.mode !== 'oneshot' && releaseAt + release > startOffset + duration){
+      source.loop = true
+      source.loopStart = start
+      source.loopEnd = end
+    }
+
     source.start(at, startOffset * duration + start)
     source.stop(releaseAt + release)
 
