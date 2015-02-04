@@ -14,9 +14,9 @@ function Granular(audioContext){
   node.rate = 8
   node.transpose = 0
   node.tune = 0
-  node.url = null
   node.hold = 1
   node.mode = 'loop'
+  node.buffer = null
 
   node._resolvedLength = 1
   node._resolvedRate = 4
@@ -29,14 +29,7 @@ function Granular(audioContext){
   return node
 }
 
-Granular.prime = function(context, desc){
-  if (desc.url && context.sampleCache && !context.sampleCache[desc.url] && context.loadSample){
-    context.loadSample(desc.url)
-  }
-}
-
 function start(at){
-
 
   if (!at || at < this.context.currentTime){
     at = this.context.currentTime
@@ -122,10 +115,9 @@ function playGrain(at, output, startOffset){
   var context = output.context
   var source = context.createBufferSource()
 
-  var buffer = output._context.sampleCache && output._context.sampleCache[output.url]
-  if (buffer instanceof AudioBuffer){
+  if (output.buffer instanceof AudioBuffer){
 
-    source.buffer = buffer
+    source.buffer = output.buffer
 
     var offset = Array.isArray(output.offset) ? output.offset : [0,1]
     var start = (offset[0] || 0) * source.buffer.duration

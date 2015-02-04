@@ -56,9 +56,9 @@ To pass in a clock instance, add `audioContext.scheduler = Bopper()`.
 
 Set the trigger mode of the audio node: 'oneshot', 'loop'
 
-### granular.url (get/set)
+### source.buffer (get/set)
 
-Choose the audio buffer source. The url must match a key in the passed in `audioContext.sampleCache`.
+Specify an instance of [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) for playback.
 
 ### granular.startOffset (get/set)
 
