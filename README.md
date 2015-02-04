@@ -17,9 +17,12 @@ $ npm install soundbank-granular
 var Granular = require('soundbank-granular')
 ```
 
-### `var granular = Granular(audioContext)`
+### `var granular = Granular(audioContext, options)`
 
 Pass an instance of [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext) to the constructor to create an AudioNode.
+
+**`options`:**
+  - **scheduler**: (required) pass in an instance of [Bopper](https://github.com/mmckegg/bopper) to provide scheduling for grain playback and `sync` if enabled.
 
 ### granular.transpose (get/set)
 
@@ -48,9 +51,7 @@ Ratio of grain length to apply as release after each grain.
 
 ### granular.sync (get/set)
 
-`true` or `false`. Sync the `rate` and `length` to a [bopper](https://github.com/mmckegg/bopper) beat clock. Defaults to `false`.
-
-To pass in a clock instance, add `audioContext.scheduler = Bopper()`.
+`true` or `false`. Sync the `rate` and `length` to the scheduler tempo. Defaults to `false`.
 
 ### granular.mode (get/set)
 

@@ -1,8 +1,8 @@
 module.exports = Granular
 
-function Granular(audioContext){
+function Granular(audioContext, options){
   var node = audioContext.createGain()
-  node._context = audioContext
+  node._options = options
 
   node.start = start
   node.stop = stop
@@ -37,9 +37,7 @@ function start(at){
 
   this._startAt = at
 
-
-
-  var scheduler = this._scheduler = this._context.scheduler
+  var scheduler = this._scheduler = this._options.scheduler
   scheduler.on('data', this._onSchedule)
 
   var nextSchedule = scheduler.getNextScheduleTime()
@@ -139,6 +137,7 @@ function playGrain(at, output, startOffset){
       source.loopEnd = end
     }
 
+    console.log('play grain', at)
     source.start(at, startOffset * duration + start)
     source.stop(releaseAt + release)
 
