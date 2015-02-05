@@ -137,7 +137,6 @@ function playGrain(at, output, startOffset){
       source.loopEnd = end
     }
 
-    console.log('play grain', at)
     source.start(at, startOffset * duration + start)
     source.stop(releaseAt + release)
 
